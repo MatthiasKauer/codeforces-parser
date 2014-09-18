@@ -24,7 +24,7 @@ SAMPLE_OUTPUT='output'
 MY_OUTPUT='my_output'
 
 # Do not modify these!
-VERSION='Codeforces Parser v1.4.2: https://github.com/johnathan79717/codeforces-parser'
+VERSION='Codeforces Parser v1.5: https://github.com/johnathan79717/codeforces-parser'
 RED_F='\033[31m'
 GREEN_F='\033[32m'
 BOLD='\033[1m'
@@ -90,11 +90,12 @@ class CodeforcesContestParser(HTMLParser):
         self.problem_names = []
     
     def handle_starttag(self, tag, attrs):
+        #print (attrs)
         if self.name == '' and attrs == [('style', 'color: black'), ('href', '/contest/%s' % (self.contest))]:
                 self.start_contest = True
         elif tag == 'option':
             if len(attrs) == 1:
-                regexp = re.compile(r"u'[A-Z]'")
+                regexp = re.compile(r".'[A-Z]'")
                 string = str(attrs[0])
                 search = regexp.search(string)
                 if search is not None:
@@ -118,7 +119,8 @@ def parse_problem(folder, contest, problem):
     url = 'http://codeforces.com/contest/%s/problem/%s' % (contest, problem)
     html = urlopen(url).read()
     parser = CodeforcesProblemParser(folder)
-    parser.feed(html.decode('utf-8').encode('utf-8')) # Should fix special chars problems.
+    parser.feed(html.decode('utf-8')) # Should fix special chars problems.
+    #parser.feed(html.decode('utf-8').encode('utf-8'))
     return parser.num_tests
 
 # Parses the contest page.  

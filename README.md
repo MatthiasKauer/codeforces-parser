@@ -1,4 +1,4 @@
-Codeforces Parser v1.4.2
+Codeforces Parser v1.5
 =================
 
 Summary
@@ -39,6 +39,8 @@ Where `464` is the contest number, not the round number! Check the URL of the co
 If you have any suggestions and/or bugs drop a message!
 
 ##### Versions Changes:
++ **1.5**
+Fixed regex to work with python3 and also encoding stuff.
 + **1.4.2:**
 The test script won't delete the contestant output anymore.
 Added some additional comments to the readme file.
@@ -70,5 +72,7 @@ Created some constants, such as compile options. These user modifiable constants
 
 ##### Todo, Bugs & Troubleshootings:
 
++ Not all special characters and symbols in the input/output were checked, please tell us if you have problems parsing a contest.
++ The script is not fully checked with python 3. If you have any problems with that let us know!
 + In OS X it is necessary to install the `gnu-time` to measure time.
 + This parser currently works only on Unix OSes. If you want to add Windows/Other support let us know.

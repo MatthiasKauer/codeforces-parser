@@ -40,7 +40,7 @@ If you have any suggestions and/or bugs drop a message!
 
 ##### Versions Changes:
 + **1.5:**
-Fixed regex to work with python3 and also encoding stuff.
+Fixed regex to work with python 3 and also encoding stuff.
 + **1.4.2:**
 The test script won't delete the contestant output anymore.
 Added some additional comments to the readme file.

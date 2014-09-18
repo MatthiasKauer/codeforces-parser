@@ -1,4 +1,4 @@
-Codeforces Parser v1.4.1
+Codeforces Parser v1.4.2
 =================
 
 Summary
@@ -28,6 +28,7 @@ Where `464` is the contest number, not the round number! Check the URL of the co
 
 1. Compilation: `g++ -g -std=c++0x -Wall main.cc`. **You can change the compile options in `parse.py:21`**.
 2. Run each sample tests on your program (`a.out`), and check the output by `diff`. If it's correct, print **Accepted**, or else print the sample test that went wrong.
+3. The script **will not** check for multiple correct answers!!!
 
 ### Collaborators and Versions:
 
@@ -38,6 +39,10 @@ Where `464` is the contest number, not the round number! Check the URL of the co
 If you have any suggestions and/or bugs drop a message!
 
 ##### Versions Changes:
++ **1.4.2:**
+The test script won't delete the contestant output anymore.
+Added some additional comments to the readme file.
+Fixed English and typos.
 + **1.4.1:**
 Minor fixes, such as typos, bugs and special characters handling.
 + **1.4:**

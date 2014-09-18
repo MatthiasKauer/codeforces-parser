@@ -24,7 +24,7 @@ SAMPLE_OUTPUT='output'
 MY_OUTPUT='my_output'
 
 # Do not modify these!
-VERSION='CodeForces Parser v1.4.1: https://github.com/johnathan79717/codeforces-parser'
+VERSION='Codeforces Parser v1.4.2: https://github.com/johnathan79717/codeforces-parser'
 RED_F='\033[31m'
 GREEN_F='\033[32m'
 BOLD='\033[1m'
@@ -145,7 +145,6 @@ def generate_test_script(folder, num_tests, problem):
             'do\n'
             '    i=$((${{#INPUT_NAME}}))\n'
             '    test_case=${{test_file:$i}}\n'
-            '    rm -R $MY_NAME*\n'
             '    if ! {5} ./a.out < $INPUT_NAME$test_case > $MY_NAME$test_case; then\n'
             '        echo {1}{4}Sample test \#$test_case: Runtime Error{2} {6}\n'
             '        echo ========================================\n'
@@ -155,7 +154,7 @@ def generate_test_script(folder, num_tests, problem):
             '        if diff --brief $MY_NAME$test_case $OUTPUT_NAME$test_case; then\n'
             '            echo {1}{3}Sample test \#$test_case: Accepted{2} {6}\n'
             '        else\n'
-            '            echo {1}{4}Sample test \#$test_case: Wrong Answer{2} {6}\n'
+            '            echo {1}{4}Sample test \#$test_case: Wrong Answer {2} {6}\n'
             '            echo ========================================\n'
             '            echo Sample Input \#$test_case\n'
             '            cat $INPUT_NAME$test_case\n'
@@ -176,7 +175,7 @@ def generate_test_script(folder, num_tests, problem):
 def main():
     print (VERSION)
     if(len(argv) < 2):
-        print('USAGE: ./parse.py 435')
+        print('USAGE: ./parse.py 464')
         return
     contest = argv[1]
     

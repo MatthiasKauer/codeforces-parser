@@ -39,7 +39,7 @@ Where `464` is the contest number, not the round number! Check the URL of the co
 If you have any suggestions and/or bugs drop a message!
 
 ##### Versions Changes:
-+ **1.5**
++ **1.5:**
 Fixed regex to work with python3 and also encoding stuff.
 + **1.4.2:**
 The test script won't delete the contestant output anymore.

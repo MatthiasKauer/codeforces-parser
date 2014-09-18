@@ -32,7 +32,7 @@ Where `464` is the contest number, not the round number! Check the URL of the co
 
 ### Collaborators and Versions:
 
-##### List of CodeForces Collaborators:
+##### List of Codeforces Collaborators:
 + [johnathan79717](http://codeforces.com/profile/johnathan79717)
 + [brunoja](http://codeforces.com/profile/brunoja)
 
@@ -49,7 +49,7 @@ Minor fixes, such as typos, bugs and special characters handling.
 Changed how the parser gets the problems. During the competitions the page is slightly different.
 Fixed some invalid character on input and output causing the script to crash.
 Forcing a new line on the input/output if there is none.
-Fixed some line number information in this README file.
+Fixed some line number information in this readme file.
 + **1.3:**
 Some minor fixes and code organizing. Also fixed some typos.
 Removed the _sample_ from default input and output files.

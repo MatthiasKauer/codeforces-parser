@@ -54,9 +54,9 @@ typedef vector<VI> VVI;
 typedef long long LL;
 const int INF = 1000000000;
 
-
-
-int main() {
+int main() 
+{
 
   return 0;
 }
+

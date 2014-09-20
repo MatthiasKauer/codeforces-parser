@@ -16,8 +16,9 @@
 #include <deque>
 #include <stack>
 #include <functional>
+#include <cassert>
 using namespace std;
-#define FOR(i,c) for(auto i=(c).begin();i!=(c).end();i++)
+#define FOR(i,c) for(auto &i: c)
 #define SZ size()
 #define ALL(x) (x).begin(),(x).end()
 #define REP(i,n) for(int i=0;i<(n);i++)
@@ -37,17 +38,22 @@ using namespace std;
 #define MP make_pair
 #define PB push_back
 #define EB emplace_back
+#define LB lower_bound
+#define UB upper_bound
 #define BG begin()
 #define ED end()
 #define PQ priority_queue
 #define MS0(x) memset(x,0,sizeof(x))
 #define MS1(x) memset(x,-1,sizeof(x))
 #define SEP(x) ((x)?'\n':' ')
+#define V(x) vector<x >
 
 typedef pair<int,int> PII;
 typedef vector<int> VI;
+typedef vector<VI> VVI;
 typedef long long LL;
 const int INF = 1000000000;
+
 
 
 int main() {

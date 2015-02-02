@@ -15,6 +15,8 @@ from sys import argv
 from subprocess import call
 from functools import partial, wraps
 import re
+import os
+import shutil
  
 # User modifiable constants:
 TEMPLATE='main.cc'
@@ -183,7 +185,8 @@ def generate_test_script(folder, num_tests, problem):
             '    fi\n'
             'done\n'
             .format(num_tests, BOLD, NORM, GREEN_F, RED_F, TIME_CMD, TIME_AP))
-    call(['chmod', '+x', folder + 'test.sh'])
+    if os.name in ['posix']:
+        call(['chmod', '+x', folder + 'test.sh'])
 
 # Main function. 
 def main():
@@ -203,8 +206,11 @@ def main():
     for index, problem in enumerate(content.problems):
         print ('Downloading Problem %s: %s...' % (problem, content.problem_names[index]))
         folder = '%s/%s/' % (contest, problem)
-        call(['mkdir', '-p', folder])
-        call(['cp', '-n', TEMPLATE, '%s/%s/%s.cc' % (contest, problem, problem)])
+        if not os.path.exists(folder):
+            os.makedirs(folder)
+        # call(['mkdir', '-p', folder])
+        # call(['cp', '-n', TEMPLATE, '%s/%s/%s.cc' % (contest, problem, problem)])
+        shutil.copyfile(TEMPLATE, '%s/%s/%s.cc' % (contest, problem, problem))
         num_tests = parse_problem(folder, contest, problem)
         print('%d sample test(s) found.' % num_tests)
         generate_test_script(folder, num_tests, problem)

@@ -7,14 +7,14 @@ import subprocess
 def usage():
     s = "Options: \n"
     s += "-d : compile in Debug mode"
-    s += "-p : test python"
+    s += "\n-p : test python"
     print(s)
 
 def colorCode(q):
-    return [ "\\033[1;41m%s\\033[0m", "\\033[1;31m%s\\033[0m", "%s", "\\033[1;32m%s\\033[0m" ][q+2] 
+    return [ "\033[41m%s\033[0m", "\033[31m%s\033[0m", "%s", "\033[32m%s\033[0m" ][q+2] 
  
 def colorTestResult(r):
-    q = {'+': 1, '?':0 }
+    q = {'+': 1, '?':0, False: -1, True: 1}
     return colorCode( q[r] if r in q else -1 ) % r
  
 def prettyStr(x):
@@ -28,9 +28,9 @@ def prettyStr(x):
 def tc_equal(expected, received):
     try:
         _t = type(expected)
-        print(_t, type(received))
+        #  print(_t, type(received))
         received = _t(received)
-        print(_t)
+        #  print(_t)
         if _t == list or _t == tuple:
             print("checking list or tuple")
             if len(expected) != len(received): return False
@@ -52,25 +52,48 @@ def tc_equal(expected, received):
     except:
         return False
  
-
-def do_test():
-    in_files = glob.glob("input*")
-    out_files = glob.glob("output*")
+def do_test(exc_str):
+    in_files = sorted(glob.glob("input*"))
+    out_files = sorted(glob.glob("output*"))
     print(in_files, out_files)
     
+    retlist = []
     for inf, outf in zip(in_files, out_files):
+        print("")
+        print("="*10)
+        print("="*10)
         print(inf, outf)
         with open(inf) as f:
-            p = subprocess.Popen("python myprog.py", stdout=subprocess.PIPE, stdin=f)
+            input_content = f.read()
+            f.seek(0)
+            p = subprocess.Popen(exc_str, stdout=subprocess.PIPE, stdin=f, shell=True)
             recv =  p.stdout.read()
 
         with open(outf) as of:
-            s = of.read()
-            print(s)
-            print(recv)
-            print(s == recv)
-            print tc_equal(s, recv)
+            correct_answer = of.read()
+            print("Input")
+            print(prettyStr(input_content.rstrip()))
+            print("Expected:")
+            print(prettyStr(correct_answer.rstrip()))
+            print("-"*10)
+            print("Received:")
+            print(prettyStr(recv.rstrip()))
+            ret_comp = tc_equal(correct_answer, recv)
 
+            print("Success: " + colorTestResult(ret_comp))
+            retlist.append(colorTestResult( "+" if ret_comp else "-"))
+
+    print("\n\n" + "="*20 + "\nSummary: ")
+    print(" ".join(retlist))
+
+
+
+            #  print("Successful? " + colorTestResult(tc_equal(correct_answer, recv)))
+
+def compile_cpp(DBG):
+    exc_str = 'g++ -std=c++11 ' + DBG + ' -Wall A.cc -o A.exe'
+    print(exc_str)
+    subprocess.call(exc_str, shell=True)
 
 def main():
     DBG = "";
@@ -90,10 +113,15 @@ def main():
             use_py = True
 
     print(DBG, use_py)
+    if(not use_py):
+        compile_cpp(DBG)
+        exc_str = './A.exe'
+    else:
+        exc_str = "python A.py"    
 
-    test_python()
+    do_test(exc_str)
 
 
 if __name__ == '__main__':
-    # main()
-    do_test()
+    main()
+    #  do_test()

@@ -212,14 +212,14 @@ def main():
             os.makedirs(folder)
         # call(['mkdir', '-p', folder])
         # call(['cp', '-n', TEMPLATE, '%s/%s/%s.cc' % (contest, problem, problem)])
-        shutil.copyfile(TEMPLATE, '%s/%s/%s.cc' % (contest, problem, problem))
-        shutil.copyfile(PYTEMPLATE, '%s/%s/%s.py' % (contest, problem, problem))
+        shutil.copyfile(TEMPLATE, '%s/%s/main.cc' % (contest, problem))
+        shutil.copyfile(PYTEMPLATE, '%s/%s/main.py' % (contest, problem))
         num_tests = parse_problem(folder, contest, problem)
         print('%d sample test(s) found.' % num_tests)
         #  generate_test_script(folder, num_tests, problem)
         shutil.copyfile(PYTESTER, '%s/%s/test.py' % (contest, problem))
         if os.name in ['posix']:
-            call(['chmod', '+x', folder + 'test.sh'])
+            call(['chmod', '+x', folder + 'test.py'])
         print ('========================================')
         
     #  print ('Use ./test.sh to run sample tests in each directory.')

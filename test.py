@@ -94,7 +94,7 @@ def do_test(exc_str):
             #  print("Successful? " + colorTestResult(tc_equal(correct_answer, recv)))
 
 def compile_cpp(DBG):
-    exc_str = 'g++ -std=c++11 ' + DBG + ' -Wall A.cc -o A.exe'
+    exc_str = 'g++ -std=c++11 ' + DBG + ' -Wall main.cc -o a.exe'
     print(exc_str)
     subprocess.call(exc_str, shell=True)
 
@@ -118,9 +118,9 @@ def main():
     print(DBG, use_py)
     if(not use_py):
         compile_cpp(DBG)
-        exc_str = './A.exe'
+        exc_str = './a.exe'
     else:
-        exc_str = "python A.py"    
+        exc_str = "python main.py"    
 
     do_test(exc_str)
 

@@ -20,7 +20,7 @@ import shutil
  
 # User modifiable constants:
 TEMPLATE='main.cc'
-PYTEMPLATE='myprog.py'
+PYTEMPLATE='main.py'
 PYTESTER='test.py'
 COMPILE_CMD='g++ -g -std=c++0x -Wall $DBG'
 SAMPLE_INPUT='input'

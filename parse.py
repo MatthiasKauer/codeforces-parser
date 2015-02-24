@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 # Python 2->3 libraries that were renamed.
 try:
@@ -20,6 +20,8 @@ import shutil
  
 # User modifiable constants:
 TEMPLATE='main.cc'
+PYTEMPLATE='myprog.py'
+PYTESTER='test.py'
 COMPILE_CMD='g++ -g -std=c++0x -Wall $DBG'
 SAMPLE_INPUT='input'
 SAMPLE_OUTPUT='output'
@@ -211,12 +213,17 @@ def main():
         # call(['mkdir', '-p', folder])
         # call(['cp', '-n', TEMPLATE, '%s/%s/%s.cc' % (contest, problem, problem)])
         shutil.copyfile(TEMPLATE, '%s/%s/%s.cc' % (contest, problem, problem))
+        shutil.copyfile(PYTEMPLATE, '%s/%s/%s.py' % (contest, problem, problem))
         num_tests = parse_problem(folder, contest, problem)
         print('%d sample test(s) found.' % num_tests)
-        generate_test_script(folder, num_tests, problem)
+        #  generate_test_script(folder, num_tests, problem)
+        shutil.copyfile(PYTESTER, '%s/%s/test.py' % (contest, problem))
+        if os.name in ['posix']:
+            call(['chmod', '+x', folder + 'test.sh'])
         print ('========================================')
         
-    print ('Use ./test.sh to run sample tests in each directory.')
+    #  print ('Use ./test.sh to run sample tests in each directory.')
+    print ('Use python test.py to run sample tests in each directory.')
  
 if __name__ == '__main__':
     main()

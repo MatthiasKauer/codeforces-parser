@@ -1,5 +1,8 @@
+#!/usr/bin/env python
+
 import getopt, sys
 import glob
+import os
 import time
 import string
 import subprocess
@@ -123,5 +126,6 @@ def main():
 
 
 if __name__ == '__main__':
+    print(os.getcwd())
     main()
     #  do_test()

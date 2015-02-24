@@ -28,7 +28,7 @@ SAMPLE_OUTPUT='output'
 MY_OUTPUT='my_output'
 
 # Do not modify these!
-VERSION='CodeForces Parser v1.4.1: https://github.com/johnathan79717/codeforces-parser'
+VERSION='CodeForces Parser v1.5: https://github.com/johnathan79717/codeforces-parser'
 RED_F='\033[31m'
 GREEN_F='\033[32m'
 BOLD='\033[1m'
@@ -90,6 +90,7 @@ class CodeforcesContestParser(HTMLParser):
         self.start_contest = False
         self.start_problem = False
         self.name = ''
+        self.problem_name = ''
         self.problems = []
         self.problem_names = []
     
@@ -98,7 +99,7 @@ class CodeforcesContestParser(HTMLParser):
                 self.start_contest = True
         elif tag == 'option':
             if len(attrs) == 1:
-                regexp = re.compile(r"u'[A-Z]'")
+                regexp = re.compile(r"u'[A-Z].*'")
                 string = str(attrs[0])
                 search = regexp.search(string)
                 if search is not None:
@@ -109,20 +110,23 @@ class CodeforcesContestParser(HTMLParser):
         if tag == 'a' and self.start_contest:
             self.start_contest = False
         elif self.start_problem:
+            self.problem_names.append(self.problem_name)
+            self.problem_name = ''
             self.start_problem = False
  
     def handle_data(self, data):
         if self.start_contest:
             self.name = data
         elif self.start_problem:
-            self.problem_names.append(data)
+            self.problem_name += data
         
 # Parses each problem page.
 def parse_problem(folder, contest, problem):
     url = 'http://codeforces.com/contest/%s/problem/%s' % (contest, problem)
     html = urlopen(url).read()
     parser = CodeforcesProblemParser(folder)
-    parser.feed(html.decode('utf-8').encode('utf-8')) # Should fix special chars problems.
+    parser.feed(html.decode('utf-8')) 
+    # .encode('utf-8') Should fix special chars problems?
     return parser.num_tests
 
 # Parses the contest page.  
@@ -194,7 +198,7 @@ def generate_test_script(folder, num_tests, problem):
 def main():
     print (VERSION)
     if(len(argv) < 2):
-        print('USAGE: ./parse.py 435')
+        print('USAGE: ./parse.py 512')
         return
     contest = argv[1]
     

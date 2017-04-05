@@ -23,14 +23,14 @@ import argparse
 language_params = {
         'c++14' : {
             'TEMPLATE'    : 'main.cc',
-            'DEBUG_FLAGS' : '-DDEBUG',
             'COMPILE_CMD' : 'g++ -g -std=c++14 -Wall $DBG $SRC_FNAME',
+            'DEBUG_FLAGS' : '-DDEBUG',
             'RUN_CMD'     : './a.out'
             },
         'go'    : {
             'TEMPLATE'    : 'main.go',
-            'COMPILE_CMD' : 'go build $DBG -o a.out',
-            'DEBUG_FLAGS' : '''"-ldflags '-X=main.DEBUG=Y'" $SRC_FNAME''',
+            'COMPILE_CMD' : 'go build $DBG -o a.out $SRC_FNAME',
+            'DEBUG_FLAGS' : '''"-ldflags '-X=main.DEBUG=Y'"''',
             'RUN_CMD'     : './a.out'
             },
         'python' : {

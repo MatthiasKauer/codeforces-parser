@@ -24,14 +24,20 @@ language_params = {
         'c++14' : {
             'TEMPLATE'    : 'main.cc',
             'DEBUG_FLAGS' : '-DDEBUG',
-            'COMPILE_CMD' : 'g++ -g -std=c++14 -Wall $DBG',
+            'COMPILE_CMD' : 'g++ -g -std=c++14 -Wall $DBG $SRC_FNAME',
             'RUN_CMD'     : './a.out'
             },
         'go'    : {
             'TEMPLATE'    : 'main.go',
             'COMPILE_CMD' : 'go build $DBG -o a.out',
-            'DEBUG_FLAGS' : '''"-ldflags '-X=main.DEBUG=Y'"''',
+            'DEBUG_FLAGS' : '''"-ldflags '-X=main.DEBUG=Y'" $SRC_FNAME''',
             'RUN_CMD'     : './a.out'
+            },
+        'python' : {
+            'TEMPLATE'    : 'main.py',
+            'COMPILE_CMD' : 'echo "nothing to do"',
+            'DEBUG_FLAGS' : '',
+            'RUN_CMD'     : 'python $SRC_FNAME'
             }
         }
 
@@ -169,7 +175,8 @@ def generate_test_script(folder, language, num_tests, problem):
             '  esac\n'
             'done\n'
             '\n'
-            'if ! ' + param["COMPILE_CMD"] +' {0}.{1}; then\n'
+            'SRC_FNAME={0}.{1}\n'
+            'if ! ' + param["COMPILE_CMD"] +' ; then\n'
             '    exit\n'
             'fi\n'
             'INPUT_NAME='+SAMPLE_INPUT+'\n'
